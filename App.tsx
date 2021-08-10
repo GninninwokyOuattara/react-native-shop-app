@@ -10,15 +10,26 @@ import * as Font from "expo-font";
 import AppStacks from "./navigators/ShopStackNavigator";
 import AppDrawer from "./navigators/AppDrawer";
 
+import { combineReducers, createStore } from "redux";
+import { Provider } from "react-redux";
+import productReducer from "./stores/reducers/products";
+
 enableScreens();
+export const rootReducer = combineReducers({
+    meals: productReducer,
+});
+
+export const store = createStore(rootReducer);
 
 export default function App() {
     return (
         <SafeAreaProvider>
             <StatusBar style="dark" />
-            <NavigationContainer>
-                <AppDrawer />
-            </NavigationContainer>
+            <Provider store={store}>
+                <NavigationContainer>
+                    <AppDrawer />
+                </NavigationContainer>
+            </Provider>
         </SafeAreaProvider>
     );
 }
