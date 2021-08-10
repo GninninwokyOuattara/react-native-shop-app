@@ -18,15 +18,50 @@ const AppDrawer = () => {
                 headerShown: false,
             }}
         >
+            <Drawer.Screen name="Home" component={ShopStackNavigator} />
             <Drawer.Screen
-                name="Home"
-                component={ShopStackNavigator}
-                
+                name="Orders"
+                component={OrdersScreen}
+                options={(props) => ({
+                    headerLeft: () => {
+                        return (
+                            <HeaderButtons
+                                HeaderButtonComponent={CustomHeaderButton}
+                            >
+                                <Item
+                                    title="cart"
+                                    iconName="ios-menu"
+                                    onPress={() =>
+                                        props.navigation.toggleDrawer()
+                                    }
+                                />
+                            </HeaderButtons>
+                        );
+                    },
+                    headerShown: true,
+                })}
             />
-            <Drawer.Screen name="Orders" component={OrdersScreen} />
             <Drawer.Screen
                 name="Manage Products"
                 component={ManageProductsScreen}
+                options={(props) => ({
+                    headerLeft: () => {
+                        return (
+                            <HeaderButtons
+                                HeaderButtonComponent={CustomHeaderButton}
+                            >
+                                <Item
+                                    title="cart"
+                                    iconName="ios-menu"
+                                    onPress={() =>
+                                        props.navigation.toggleDrawer()
+                                    }
+                                />
+                            </HeaderButtons>
+                        );
+                    },
+                    headerShown: true,
+                })}
             />
         </Drawer.Navigator>
     );
