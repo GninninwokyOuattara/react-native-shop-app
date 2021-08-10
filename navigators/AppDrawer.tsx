@@ -7,6 +7,7 @@ import OrdersScreen from "../screens/OrdersScreen";
 import ManageProductsScreen from "../screens/ManageProductsScreen";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/CustomHeaderButton";
+import { ManageProductsNavigator } from "./ShopStackNavigator";
 
 const Drawer = createDrawerNavigator();
 
@@ -43,25 +44,7 @@ const AppDrawer = () => {
             />
             <Drawer.Screen
                 name="Manage Products"
-                component={ManageProductsScreen}
-                options={(props) => ({
-                    headerLeft: () => {
-                        return (
-                            <HeaderButtons
-                                HeaderButtonComponent={CustomHeaderButton}
-                            >
-                                <Item
-                                    title="cart"
-                                    iconName="ios-menu"
-                                    onPress={() =>
-                                        props.navigation.toggleDrawer()
-                                    }
-                                />
-                            </HeaderButtons>
-                        );
-                    },
-                    headerShown: true,
-                })}
+                component={ManageProductsNavigator}
             />
         </Drawer.Navigator>
     );
