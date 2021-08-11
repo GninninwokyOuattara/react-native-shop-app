@@ -74,6 +74,13 @@ export const ManageProductsNavigator = (props: any) => {
                     },
                 })}
             />
+            <Stack.Screen
+                name="Details"
+                component={DetailsScreen}
+                options={(props) => ({
+                    title: "Details",
+                })}
+            />
         </Stack.Navigator>
     );
 };

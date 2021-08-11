@@ -16,7 +16,7 @@ import productReducer from "./stores/reducers/products";
 
 enableScreens();
 export const rootReducer = combineReducers({
-    meals: productReducer,
+    products: productReducer,
 });
 
 export const store = createStore(rootReducer);

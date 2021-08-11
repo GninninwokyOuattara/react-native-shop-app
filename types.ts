@@ -9,3 +9,5 @@ export interface InitialStoreState {
     availableProducts: Product[];
     userProducts: Product[];
 }
+
+export type RenderItemFunc = (itemData: { item: Product }) => JSX.Element;
