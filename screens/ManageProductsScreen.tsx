@@ -25,7 +25,7 @@ const ManageProductsScreen = (props: any) => {
     return (
         <View style={{ flex: 1 }}>
             <ProductList
-                products={userProducts}
+                data={userProducts}
                 navigation={props.navigation}
                 userProduct
             />

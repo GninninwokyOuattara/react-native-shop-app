@@ -4,8 +4,6 @@ import Product from "./models/product";
 
 export type RootState = ReturnType<typeof store.getState>;
 
-// export type Action = { [key: string]: string };
-// export type Action<T> = { [key: string] : T , type: string}
 interface ReducerType {
     type: string;
 }
@@ -19,11 +17,23 @@ export interface InitialStoreState {
     userProducts: Product[];
 }
 
-type CartAmount = { totalAmount: number };
-export interface InitialCartState extends CartAmount {
+export interface CartState {
     items: {
         [key: string]: CartItem;
     };
+    totalAmount: number;
 }
 
-export type RenderItemFunc = (itemData: { item: Product }) => JSX.Element;
+export type RenderItemFunc<T> = (itemData: { item: T }) => JSX.Element;
+
+export interface Props<T> {
+    [key: string]: T;
+}
+
+export interface NavigationProp {
+    navigation: any;
+}
+
+export interface PropsWithNavigation<T> extends NavigationProp {
+    data: T;
+}

@@ -21,10 +21,7 @@ const HomeScreen = (props: any) => {
                 flex: 1,
             }}
         >
-            <ProductList
-                products={shopProducts}
-                navigation={props.navigation}
-            />
+            <ProductList data={shopProducts} navigation={props.navigation} />
         </View>
     );
 };

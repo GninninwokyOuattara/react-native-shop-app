@@ -2,9 +2,9 @@ import { ADD_TO_CART } from "../actions/cart";
 import CartItem from "../../models/cart-item";
 import { ReducerParams } from "../../types";
 import Product from "../../models/product";
-import { InitialCartState } from "../../types";
+import { CartState } from "../../types";
 
-const initialState: InitialCartState = {
+const initialState: CartState = {
     items: {},
     totalAmount: 0,
 };

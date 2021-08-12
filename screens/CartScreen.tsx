@@ -1,24 +1,40 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 import { useSelector } from "react-redux";
-import { RootState } from "../types";
+import CartList from "../components/CartList";
+import { RootState, NavigationProp } from "../types";
 
-const CartScreen = () => {
+const CartScreen: React.FC<NavigationProp> = (props) => {
     const cart = useSelector((state: RootState) => state.cart);
+    if (!cart.totalAmount) {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                <Text>Wow such empty.</Text>
+                <Text>Consider adding product to your cart ?</Text>
+            </View>
+        );
+    }
+
     return (
         <View style={{ flex: 1 }}>
-            {/* <Text>Cart Screens</Text> */}
             <View style={{ ...styles.header, ...styles.shadowProp }}>
                 <View>
                     <Text style={styles.text}>
                         Total :{" "}
                         <Text style={{ ...styles.text, color: "red" }}>
-                            ${cart.totalAmount}
+                            ${Math.round(cart.totalAmount * 100) / 100}
                         </Text>
                     </Text>
                 </View>
                 <Button title={"Order Now"} onPress={() => {}} />
             </View>
+            <CartList data={cart} navigation={props.navigation} />
         </View>
     );
 };
