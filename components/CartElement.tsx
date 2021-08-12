@@ -2,8 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import CartItem from "../models/cart-item";
 import Icon from "@expo/vector-icons/Ionicons";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "../stores/actions/cart";
 
-const CartElement: React.FC<CartItem> = (props) => {
+const CartElement: React.FC<CartItem & { productId: string }> = (props) => {
+    const dispatch = useDispatch();
     return (
         <View style={[styles.container, styles.row]}>
             <View style={{ ...styles.row, flex: 1 }}>
@@ -23,6 +26,7 @@ const CartElement: React.FC<CartItem> = (props) => {
                     size={20}
                     color="red"
                     style={{ marginLeft: 10 }}
+                    onPress={() => dispatch(removeFromCart(props.productId))}
                 />
             </View>
         </View>

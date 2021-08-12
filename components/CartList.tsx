@@ -11,8 +11,7 @@ interface Items {
 const CartList: React.FC<PropsWithNavigation<CartState>> = (props) => {
     const { items } = props.data;
     const renderFunction: RenderItemFunc<string> = ({ item }) => {
-        // <Text>{items[item].productTitle}</Text>;
-        return <CartElement {...items[item]} />;
+        return <CartElement {...items[item]} productId={item} />;
     };
 
     return (

@@ -2,13 +2,17 @@ import React, { useEffect } from "react";
 import { View, Text, Image, StyleSheet, Button } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../types";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../stores/actions/cart";
+import { NavigationPropWithRoute } from "../types";
 
-const DetailsScreen = (props: any) => {
+const DetailsScreen: React.FC<NavigationPropWithRoute> = (props) => {
     const { productId } = props.route.params;
     const shopProducts = useSelector(
         (state: RootState) => state.products.availableProducts
     );
     const product = shopProducts.find((product) => product.id === productId);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         props.navigation.setOptions({
@@ -29,7 +33,10 @@ const DetailsScreen = (props: any) => {
                 <View style={styles.descriptionContainer}>
                     <Text>{product.description}</Text>
                 </View>
-                <Button title={"To Cart"} onPress={() => {}} />
+                <Button
+                    title={"To Cart"}
+                    onPress={() => dispatch(addToCart(product))}
+                />
             </View>
         );
     }

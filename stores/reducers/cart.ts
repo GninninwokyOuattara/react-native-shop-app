@@ -1,4 +1,4 @@
-import { ADD_TO_CART } from "../actions/cart";
+import { ADD_TO_CART, removeFromCart, REMOVE_FROM_CART } from "../actions/cart";
 import CartItem from "../../models/cart-item";
 import { ReducerParams } from "../../types";
 import Product from "../../models/product";
@@ -9,10 +9,13 @@ const initialState: CartState = {
     totalAmount: 0,
 };
 
-export default (state = initialState, action: ReducerParams<Product>) => {
+export default (
+    state = initialState,
+    action: ReducerParams<Product | string>
+) => {
     switch (action.type) {
         case ADD_TO_CART:
-            const productToAdd = action.product;
+            const productToAdd = action.product as Product;
             let isInCart = !!state.items[productToAdd.id];
             if (!isInCart) {
                 return {
@@ -41,6 +44,18 @@ export default (state = initialState, action: ReducerParams<Product>) => {
                     },
                 },
                 totalAmount: state.totalAmount + productToAdd.price,
+            };
+
+        case REMOVE_FROM_CART:
+            const productId = action.productId as string;
+            let newItems = state.items;
+            const itemToDelete = state.items[productId];
+            delete newItems[productId];
+            return {
+                items: newItems,
+                totalAmount:
+                    state.totalAmount -
+                    itemToDelete.quantity * itemToDelete.productPrice,
             };
         default:
             return state;

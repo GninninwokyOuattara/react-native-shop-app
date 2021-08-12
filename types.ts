@@ -34,6 +34,10 @@ export interface NavigationProp {
     navigation: any;
 }
 
+export interface NavigationPropWithRoute extends NavigationProp {
+    route: any;
+}
+
 export interface PropsWithNavigation<T> extends NavigationProp {
     data: T;
 }
