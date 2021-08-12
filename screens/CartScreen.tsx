@@ -1,11 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, FlatList } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CartList from "../components/CartList";
 import { RootState, NavigationProp } from "../types";
+import { addOrder } from "../stores/actions/orders";
+import { clearCart } from "../stores/actions/cart";
 
 const CartScreen: React.FC<NavigationProp> = (props) => {
     const cart = useSelector((state: RootState) => state.cart);
+    const dispatch = useDispatch();
+
     if (!cart.totalAmount) {
         return (
             <View
@@ -32,7 +36,13 @@ const CartScreen: React.FC<NavigationProp> = (props) => {
                         </Text>
                     </Text>
                 </View>
-                <Button title={"Order Now"} onPress={() => {}} />
+                <Button
+                    title={"Order Now"}
+                    onPress={() => {
+                        dispatch(addOrder(cart.items, cart.totalAmount));
+                        dispatch(clearCart());
+                    }}
+                />
             </View>
             <CartList data={cart} navigation={props.navigation} />
         </View>

@@ -1,4 +1,9 @@
-import { ADD_TO_CART, removeFromCart, REMOVE_FROM_CART } from "../actions/cart";
+import {
+    ADD_TO_CART,
+    CLEAR_CART,
+    removeFromCart,
+    REMOVE_FROM_CART,
+} from "../actions/cart";
 import CartItem from "../../models/cart-item";
 import { ReducerParams } from "../../types";
 import Product from "../../models/product";
@@ -56,6 +61,12 @@ export default (
                 totalAmount:
                     state.totalAmount -
                     itemToDelete.quantity * itemToDelete.productPrice,
+            };
+        case CLEAR_CART:
+            return {
+                ...state,
+                items: {},
+                totalAmount: 0,
             };
         default:
             return state;

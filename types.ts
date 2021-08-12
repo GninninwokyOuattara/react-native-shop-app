@@ -1,5 +1,6 @@
 import { store } from "./App";
 import CartItem from "./models/cart-item";
+import Order from "./models/order";
 import Product from "./models/product";
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -12,16 +13,23 @@ export type ReducerParams<T> = ReducerType & {
     [key: string]: T;
 };
 
+export type ReducerParams2<T> = ReducerType & T;
+
 export interface InitialStoreState {
     availableProducts: Product[];
     userProducts: Product[];
 }
 
+export interface CartItems {
+    [key: string]: CartItem;
+}
 export interface CartState {
-    items: {
-        [key: string]: CartItem;
-    };
+    items: CartItems;
     totalAmount: number;
+}
+
+export interface OrderState {
+    orders: Order[];
 }
 
 export type RenderItemFunc<T> = (itemData: { item: T }) => JSX.Element;

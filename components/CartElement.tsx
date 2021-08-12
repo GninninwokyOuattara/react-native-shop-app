@@ -13,7 +13,11 @@ const CartElement: React.FC<CartItem & { productId: string }> = (props) => {
                 <Text style={[styles.text, { color: "#CCC", marginRight: 5 }]}>
                     {props.quantity}
                 </Text>
-                <ScrollView horizontal={true} style={{ flex: 1 }}>
+                <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    style={{ flex: 1 }}
+                >
                     <Text style={[styles.text]}>{props.productTitle}</Text>
                 </ScrollView>
             </View>
