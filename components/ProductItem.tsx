@@ -7,7 +7,9 @@ import {
     Image,
     Button,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import Product from "../models/product";
+import { addToCart } from "../stores/actions/cart";
 
 interface props {
     product: Product;
@@ -20,19 +22,25 @@ const ProductItem: React.FC<props> = ({
     onSelectProduct,
     userProduct,
 }) => {
+    const dispatch = useDispatch();
+
+    const dispatchAction = () => {
+        return dispatch(addToCart(product));
+    };
+
     let buttonComponent: JSX.Element;
     if (userProduct) {
         buttonComponent = (
             <View style={styles.buttonContainer}>
                 <Button title={"Edit"} onPress={onSelectProduct} />
-                <Button title={"Delete"} onPress={onSelectProduct} />
+                <Button title={"Delete"} onPress={() => {}} />
             </View>
         );
     } else {
         buttonComponent = (
             <View style={styles.buttonContainer}>
                 <Button title={"View Details"} onPress={onSelectProduct} />
-                <Button title={"To Cart"} onPress={onSelectProduct} />
+                <Button title={"To Cart"} onPress={dispatchAction} />
             </View>
         );
     }

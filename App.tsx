@@ -13,10 +13,12 @@ import AppDrawer from "./navigators/AppDrawer";
 import { combineReducers, createStore } from "redux";
 import { Provider } from "react-redux";
 import productReducer from "./stores/reducers/products";
+import cartReducer from "./stores/reducers/cart";
 
 enableScreens();
 export const rootReducer = combineReducers({
     products: productReducer,
+    cart: cartReducer,
 });
 
 export const store = createStore(rootReducer);

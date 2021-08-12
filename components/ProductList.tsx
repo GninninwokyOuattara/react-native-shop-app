@@ -7,7 +7,7 @@ import ProductItem from "./ProductItem";
 interface props {
     products: Product[];
     navigation: any;
-    userProduct: boolean;
+    userProduct?: boolean;
 }
 
 const ProductList: React.FC<props> = (props) => {
