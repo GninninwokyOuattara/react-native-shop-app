@@ -1,4 +1,5 @@
 import { CartItems } from "../types";
+import dateFormat from "dateformat";
 
 class Order {
     id: string;
@@ -10,6 +11,10 @@ class Order {
         this.items = items;
         this.totalAmount = totalAmount;
         this.date = date;
+    }
+
+    getReadableDate(d: Date) {
+        return dateFormat(d, "mmmm dS yyyy, h:MM");
     }
 }
 

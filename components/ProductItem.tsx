@@ -54,10 +54,9 @@ const ProductItem: React.FC<props> = ({
                         uri: product.imageUrl,
                     }}
                 />
-                <View>
+                <View style={{ alignSelf: "center" }}>
                     <Text style={styles.heading}>{product.title}</Text>
-                </View>
-                <View>
+
                     <Text style={styles.price}>$ {product.price}</Text>
                 </View>
                 {buttonComponent}

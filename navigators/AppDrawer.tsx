@@ -8,6 +8,7 @@ import ManageProductsScreen from "../screens/ManageProductsScreen";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/CustomHeaderButton";
 import { ManageProductsNavigator } from "./ShopStackNavigator";
+import Icon from "@expo/vector-icons/Ionicons";
 
 const Drawer = createDrawerNavigator();
 
@@ -19,11 +20,18 @@ const AppDrawer = () => {
                 headerShown: false,
             }}
         >
-            <Drawer.Screen name="Home" component={ShopStackNavigator} />
+            <Drawer.Screen
+                name="Home"
+                component={ShopStackNavigator}
+                options={(props) => ({
+                    drawerIcon: () => <Icon name="ios-home" size={20} />,
+                })}
+            />
             <Drawer.Screen
                 name="Orders"
                 component={OrdersScreen}
                 options={(props) => ({
+                    drawerIcon: () => <Icon name="ios-list" size={20} />,
                     headerLeft: () => {
                         return (
                             <HeaderButtons
@@ -45,6 +53,9 @@ const AppDrawer = () => {
             <Drawer.Screen
                 name="Manage Products"
                 component={ManageProductsNavigator}
+                options={(props) => ({
+                    drawerIcon: () => <Icon name="ios-folder-open" size={20} />,
+                })}
             />
         </Drawer.Navigator>
     );

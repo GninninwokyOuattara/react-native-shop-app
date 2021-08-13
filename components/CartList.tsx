@@ -15,6 +15,7 @@ const CartList: React.FC<PropsWithNavigation<CartState>> = (props) => {
             data={Object.keys(items)}
             renderItem={renderFunction}
             keyExtractor={(index) => index.toString()}
+            showsVerticalScrollIndicator={false}
         />
     );
 };

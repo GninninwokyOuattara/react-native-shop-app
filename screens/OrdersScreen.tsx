@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import OrderList from "../components/OrderList";
 import { RootState } from "../types";
 
 const OrdersScreen = () => {
@@ -21,15 +22,7 @@ const OrdersScreen = () => {
         );
     }
 
-    console.log(orders);
-
-    return (
-        <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-            <Text>Orders</Text>
-        </View>
-    );
+    return <OrderList orders={orders} />;
 };
 
 export default OrdersScreen;
