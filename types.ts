@@ -1,3 +1,5 @@
+import { StackNavigationProp } from "@react-navigation/stack";
+
 import { store } from "./App";
 import CartItem from "./models/cart-item";
 import Order from "./models/order";
@@ -49,3 +51,20 @@ export interface NavigationPropWithRoute extends NavigationProp {
 export interface PropsWithNavigation<T> extends NavigationProp {
     data: T;
 }
+
+export type ManageProductsStack = {
+    ManageProduct: undefined;
+    ProductForm: undefined;
+};
+
+export type ShopStack = {
+    Shop: undefined;
+    ProductForm: undefined;
+};
+
+type NavProp<T extends ShopStack | ManageProductsStack> =
+    StackNavigationProp<T>;
+
+export type ScreenNavigationProps<T extends ShopStack | ManageProductsStack> = {
+    navigation: NavProp<T>;
+};
