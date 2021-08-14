@@ -16,12 +16,14 @@ interface props {
     product: Product;
     onSelectProduct: () => void;
     userProduct?: boolean;
+    navigation: any;
 }
 
 const ProductItem: React.FC<props> = ({
     product,
     onSelectProduct,
     userProduct,
+    navigation,
 }) => {
     const dispatch = useDispatch();
 
@@ -33,7 +35,14 @@ const ProductItem: React.FC<props> = ({
     if (userProduct) {
         buttonComponent = (
             <View style={styles.buttonContainer}>
-                <Button title={"Edit"} onPress={onSelectProduct} />
+                <Button
+                    title={"Edit"}
+                    onPress={() =>
+                        navigation.navigate("ProductForm", {
+                            product: product,
+                        })
+                    }
+                />
                 <Button
                     title={"Delete"}
                     onPress={() => dispatch(deleteProduct(product.id))}

@@ -17,6 +17,7 @@ const ProductList: React.FC<PropsWithNavigation<Product[]> & UserProduct> = (
             <ProductItem
                 userProduct={props.userProduct}
                 product={item}
+                navigation={props.navigation}
                 onSelectProduct={() =>
                     props.navigation.navigate("Details", {
                         productId: item.id,

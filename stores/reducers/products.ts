@@ -1,6 +1,10 @@
 import PRODUCTS from "../../data/dummy-data";
 import { ReducerParams, InitialStoreState } from "../../types";
-import { deleteProduct, DELETE_PRODUCT } from "../actions/products";
+import {
+    DELETE_PRODUCT,
+    ADD_PRODUCT,
+    UPDATE_PRODUCT,
+} from "../actions/products";
 
 const initialState: InitialStoreState = {
     availableProducts: PRODUCTS,
@@ -20,7 +24,32 @@ export default (state = initialState, action: ReducerParams<any>) => {
                     (prod) => prod.ownerId === "u1"
                 ),
             };
+        case ADD_PRODUCT:
+            const newAvailableProduct = [
+                ...state.availableProducts,
+                action.product,
+            ];
+            return {
+                ...state,
+                availableProducts: newAvailableProduct,
+                userProducts: newAvailableProduct.filter(
+                    (prod) => prod.ownerId === "u1"
+                ),
+            };
 
+        case UPDATE_PRODUCT:
+            const productIndex = state.availableProducts.findIndex(
+                (prod) => prod.id == action.product.id
+            );
+            const newAvailable = [...state.availableProducts];
+            newAvailable[productIndex] = action.product;
+            return {
+                ...state,
+                availableProducts: newAvailable,
+                userProducts: newAvailable.filter(
+                    (prod) => prod.ownerId === "u1"
+                ),
+            };
         default:
             return state;
     }

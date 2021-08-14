@@ -57,21 +57,21 @@ export const ManageProductsNavigator = (props: any) => {
                 component={ProductFormScreen}
                 options={(props) => ({
                     title: "Awesome Form",
-                    headerRight: () => {
-                        return (
-                            <HeaderButtons
-                                HeaderButtonComponent={CustomHeaderButton}
-                            >
-                                <Item
-                                    title="cart"
-                                    iconName="ios-checkmark-circle"
-                                    onPress={() =>
-                                        props.navigation.navigate("ProductForm")
-                                    }
-                                />
-                            </HeaderButtons>
-                        );
-                    },
+                    // headerRight: () => {
+                    //     return (
+                    //         <HeaderButtons
+                    //             HeaderButtonComponent={CustomHeaderButton}
+                    //         >
+                    //             <Item
+                    //                 title="cart"
+                    //                 iconName="ios-checkmark-circle"
+                    //                 onPress={() =>
+                    //                     props.navigation.navigate("ProductForm")
+                    //                 }
+                    //             />
+                    //         </HeaderButtons>
+                    //     );
+                    // },
                 })}
             />
             <Stack.Screen
