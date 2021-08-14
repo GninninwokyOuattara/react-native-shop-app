@@ -10,6 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import Product from "../models/product";
 import { addToCart } from "../stores/actions/cart";
+import { deleteProduct } from "../stores/actions/products";
 
 interface props {
     product: Product;
@@ -33,7 +34,10 @@ const ProductItem: React.FC<props> = ({
         buttonComponent = (
             <View style={styles.buttonContainer}>
                 <Button title={"Edit"} onPress={onSelectProduct} />
-                <Button title={"Delete"} onPress={() => {}} />
+                <Button
+                    title={"Delete"}
+                    onPress={() => dispatch(deleteProduct(product.id))}
+                />
             </View>
         );
     } else {
