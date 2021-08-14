@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Image,
     Button,
+    Alert,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import Product from "../models/product";
@@ -31,6 +32,28 @@ const ProductItem: React.FC<props> = ({
         return dispatch(addToCart(product));
     };
 
+    const deleteHandler = () => {
+        Alert.alert(
+            "Warning",
+            "Are you sure ?",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => {},
+                    style: "default",
+                },
+                {
+                    text: "Confirm",
+                    onPress: () => dispatch(deleteProduct(product.id)),
+                    style: "destructive",
+                },
+            ],
+            {
+                cancelable: true,
+            }
+        );
+    };
+
     let buttonComponent: JSX.Element;
     if (userProduct) {
         buttonComponent = (
@@ -43,10 +66,7 @@ const ProductItem: React.FC<props> = ({
                         })
                     }
                 />
-                <Button
-                    title={"Delete"}
-                    onPress={() => dispatch(deleteProduct(product.id))}
-                />
+                <Button title={"Delete"} onPress={() => deleteHandler()} />
             </View>
         );
     } else {
