@@ -89,16 +89,13 @@ const ProductForm: React.FC<
                                 iconName="ios-checkmark"
                                 onPress={() => {
                                     dispatch(
-                                        addProduct(
-                                            new Product(
-                                                id,
-                                                "u1",
-                                                title,
-                                                imageUrl,
-                                                description,
-                                                parseFloat(price)
-                                            )
-                                        )
+                                        addProduct({
+                                            title,
+                                            ownerId: "u1",
+                                            imageUrl,
+                                            description,
+                                            price: +price,
+                                        })
                                     );
                                     goBack();
                                 }}
