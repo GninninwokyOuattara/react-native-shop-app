@@ -5,6 +5,7 @@ import {
     DELETE_PRODUCT,
     ADD_PRODUCT,
     UPDATE_PRODUCT,
+    FETCH_PRODUCT,
 } from "../actions/products";
 
 const initialState: InitialStoreState = {
@@ -17,8 +18,20 @@ export default (
     action:
         | ReducerParams2<{ product: Product }>
         | ReducerParams2<{ productId: string }>
+        | ReducerParams2<{ products: typeof PRODUCTS }>
 ) => {
     switch (action.type) {
+        case FETCH_PRODUCT:
+            if ("products" in action) {
+                return {
+                    ...state,
+                    availableProducts: [
+                        ...state.availableProducts,
+                        ...action.products,
+                    ],
+                };
+            }
+            return state;
         case DELETE_PRODUCT:
             if ("productId" in action) {
                 const newProduct = state.availableProducts.filter(
