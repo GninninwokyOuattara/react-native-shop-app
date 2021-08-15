@@ -10,8 +10,9 @@ import * as Font from "expo-font";
 import AppStacks from "./navigators/ShopStackNavigator";
 import AppDrawer from "./navigators/AppDrawer";
 
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import ReduxThunk from "redux-thunk";
 import productReducer from "./stores/reducers/products";
 import cartReducer from "./stores/reducers/cart";
 import orderReducer from "./stores/reducers/orders";
@@ -23,7 +24,7 @@ export const rootReducer = combineReducers({
     orders: orderReducer,
 });
 
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
     return (
