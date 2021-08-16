@@ -25,10 +25,7 @@ export default (
             if ("products" in action) {
                 return {
                     ...state,
-                    availableProducts: [
-                        ...state.availableProducts,
-                        ...action.products,
-                    ],
+                    availableProducts: [...action.products],
                 };
             }
             return state;
