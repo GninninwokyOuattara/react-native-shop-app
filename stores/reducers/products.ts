@@ -26,6 +26,9 @@ export default (
                 return {
                     ...state,
                     availableProducts: [...action.products],
+                    userProducts: action.products.filter(
+                        (prod) => prod.ownerId === "u1"
+                    ),
                 };
             }
             return state;
