@@ -6,8 +6,24 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const FETCH_PRODUCT = "FETCH_PRODUCT";
 
+// export const deleteProduct = (productId: string) => {
+//     return { type: DELETE_PRODUCT, productId };
+// };
+
 export const deleteProduct = (productId: string) => {
-    return { type: DELETE_PRODUCT, productId };
+    return async (dispatch: any): Promise<void | string> => {
+        try {
+            const response = await axios.delete(
+                `https://react-native-test-4f012-default-rtdb.firebaseio.com/products/${productId}.json`
+            );
+
+            if (response.status == 200) {
+                dispatch({ type: DELETE_PRODUCT, productId });
+            }
+        } catch (error) {
+            throw error.message;
+        }
+    };
 };
 
 export const fetchProduct = () => {
@@ -74,6 +90,27 @@ export const addProduct = (product: {
     };
 };
 
+// export const updateProduct = (product: Product) => {
+//     return { type: UPDATE_PRODUCT, product };
+// };
+
 export const updateProduct = (product: Product) => {
-    return { type: UPDATE_PRODUCT, product };
+    return async (dispatch: any): Promise<void | string> => {
+        try {
+            let updates: Partial<Product> = { ...product };
+            delete updates.id;
+            const response = await axios.patch(
+                `https://react-native-test-4f012-default-rtdb.firebaseio.com/products/${product.id}.json`,
+                updates
+            );
+            if (response.status === 200) {
+                dispatch({
+                    type: UPDATE_PRODUCT,
+                    product,
+                });
+            }
+        } catch (error) {
+            throw error.message;
+        }
+    };
 };
