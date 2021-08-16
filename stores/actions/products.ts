@@ -11,30 +11,34 @@ export const deleteProduct = (productId: string) => {
 };
 
 export const fetchProduct = () => {
-    return async (dispatch: any) => {
-        const response = await axios.get(
-            "https://react-native-test-4f012-default-rtdb.firebaseio.com/products.json"
-        );
-        const fetchedData = response.data;
-        let loadedProducts: Product[] = [];
-        for (const key in fetchedData) {
-            const prod: Product = fetchedData[key];
-            loadedProducts.push(
-                new Product(
-                    key,
-                    prod.ownerId,
-                    prod.title,
-                    prod.imageUrl,
-                    prod.description,
-                    prod.price
-                )
+    return async (dispatch: any): Promise<void | string> => {
+        try {
+            const response = await axios.get(
+                "https://react-native-test-4f012-default-rtdb.firebaseio.com/products.json"
             );
-        }
+            const fetchedData = response.data;
+            let loadedProducts: Product[] = [];
+            for (const key in fetchedData) {
+                const prod: Product = fetchedData[key];
+                loadedProducts.push(
+                    new Product(
+                        key,
+                        prod.ownerId,
+                        prod.title,
+                        prod.imageUrl,
+                        prod.description,
+                        prod.price
+                    )
+                );
+            }
 
-        dispatch({
-            type: FETCH_PRODUCT,
-            products: loadedProducts,
-        });
+            dispatch({
+                type: FETCH_PRODUCT,
+                products: loadedProducts,
+            });
+        } catch (error) {
+            throw error.message;
+        }
     };
 };
 
