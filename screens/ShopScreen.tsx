@@ -11,12 +11,13 @@ import ProductList from "../components/ProductList";
 import Product from "../models/product";
 import { RootState } from "../types";
 import { fetchProduct } from "../stores/actions/products";
+import { ScreenNavigationProps, ShopStack } from "../types";
 
 const renderItem: React.FC<{ item: Product }> = ({ item }) => {
     return <Text>{item.title}</Text>;
 };
 
-const HomeScreen = (props: any) => {
+const HomeScreen: React.FC<ScreenNavigationProps<ShopStack>> = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState<false | string>(false);
     const [refreshing, setRefreshing] = useState(false);
@@ -36,9 +37,12 @@ const HomeScreen = (props: any) => {
 
         setIsLoading(false);
     }, [setIsLoading, setIsError]);
+
     useEffect(() => {
-        load();
-    }, [dispatch]);
+        const unsubFocus = props.navigation.addListener("focus", load);
+
+        return unsubFocus;
+    }, [load]);
 
     if (isLoading) {
         return (
