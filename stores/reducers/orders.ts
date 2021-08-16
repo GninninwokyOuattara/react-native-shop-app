@@ -1,4 +1,4 @@
-import { ADD_ORDER } from "../actions/orders";
+import { ADD_ORDER, FETCH_ORDER } from "../actions/orders";
 import Order from "../../models/order";
 import {
     CartItems,
@@ -18,22 +18,34 @@ interface OrderType {
     };
 }
 
-export default (state = initialState, action: ReducerParams2<OrderType>) => {
+export default (
+    state = initialState,
+    action: ReducerParams2<OrderType | { orders: Order[] }>
+) => {
     switch (action.type) {
         case ADD_ORDER:
-            const newOrder = new Order(
-                new Date().toString(),
-                action.orderData.items,
-                action.orderData.amount,
-                new Date()
-            );
-            return {
-                ...state,
-                orders: state.orders.concat(newOrder),
-            };
+            if ("orderData" in action) {
+                const newOrder = new Order(
+                    new Date().toString(),
+                    action.orderData.items,
+                    action.orderData.amount,
+                    new Date()
+                );
+                return {
+                    ...state,
+                    orders: state.orders.concat(newOrder),
+                };
+            }
+        case FETCH_ORDER:
+            if ("orders" in action) {
+                return { ...state, orders: action.orders };
+            }
         // return {
         //   orders : {...state.orders, newOrder}
         // }
+        default:
+            console.log(action);
+            return state;
     }
 
     return state;
