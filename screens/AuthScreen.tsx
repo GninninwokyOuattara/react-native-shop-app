@@ -1,6 +1,13 @@
 import axios from "axios";
 import React, { useReducer, useState, useCallback } from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    TextInput,
+    Button,
+    ActivityIndicator,
+} from "react-native";
 import { useDispatch } from "react-redux";
 import { signIn, signUp } from "../stores/actions/auth";
 
@@ -44,8 +51,10 @@ const AuthScreen: React.FC<props> = (props) => {
         password: "",
         formType: "Login",
     });
+    const [isLoading, setIsLoading] = useState(false);
 
     const signHandler = useCallback(async () => {
+        setIsLoading(true);
         let response: any;
         try {
             if (state.formType === "Login") {
@@ -54,8 +63,10 @@ const AuthScreen: React.FC<props> = (props) => {
                 response = await dispatch(signUp(state.email, state.password));
             }
 
+            setIsLoading(false);
             props.setIsLoggedIn(true);
         } catch (error) {
+            setIsLoading(false);
             console.log("Error", error);
         }
     }, [state.email, state.password, state.formType]);
@@ -93,26 +104,32 @@ const AuthScreen: React.FC<props> = (props) => {
                         />
                     </View>
                 </View>
-                <Button
-                    title={`${
-                        state.formType === "Login" ? "Login" : "Sign Up"
-                    }`}
-                    onPress={() => signHandler()}
-                />
-                <Button
-                    title={`Switch to ${
-                        state.formType === "Login" ? "Sign Up" : "Login"
-                    }`}
-                    onPress={() =>
-                        dispatchForm({
-                            type: "SWITCH",
-                            formType:
-                                state.formType === "Login"
-                                    ? "Sign Up"
-                                    : "Login",
-                        })
-                    }
-                />
+                {isLoading && <ActivityIndicator size="large" />}
+                {!isLoading && (
+                    <>
+                        <Button
+                            title={`${
+                                state.formType === "Login" ? "Login" : "Sign Up"
+                            }`}
+                            onPress={() => signHandler()}
+                        />
+                        <Button
+                            title={`Switch to ${
+                                state.formType === "Login" ? "Sign Up" : "Login"
+                            }`}
+                            onPress={() =>
+                                dispatchForm({
+                                    type: "SWITCH",
+                                    formType:
+                                        state.formType === "Login"
+                                            ? "Sign Up"
+                                            : "Login",
+                                })
+                            }
+                        />
+                    </>
+                )}
+
                 {/* <View style={styles.buttonsContainer}>
                 </View> */}
             </View>
