@@ -61,8 +61,6 @@ export default (
                         (prod) => prod.ownerId === "u1"
                     ),
                 };
-            } else {
-                console.log(action);
             }
 
         case UPDATE_PRODUCT:

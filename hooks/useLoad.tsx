@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { fetchProduct } from "../stores/actions/products";
 import { useDispatch } from "react-redux";
+import { fetchOrder } from "../stores/actions/orders";
 
 const useLoad = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +20,19 @@ const useLoad = () => {
         setIsLoading(false);
     }, [setIsLoading, setIsError]);
 
-    return { isLoading, isError, load };
+    const loadOrders = useCallback(async () => {
+        setIsLoading(true);
+        setIsError(false);
+        try {
+            await dispatch(fetchOrder());
+        } catch (error) {
+            setIsError(error);
+        }
+
+        setIsLoading(false);
+    }, [setIsLoading, setIsError]);
+
+    return { isLoading, isError, load, loadOrders };
 };
 
 export default useLoad;

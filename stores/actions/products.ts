@@ -71,8 +71,6 @@ export const addProduct = (product: {
             product
         );
 
-        console.log(response.data.name);
-
         const newProduct = new Product(
             response.data.name,
             "u1",
@@ -82,7 +80,6 @@ export const addProduct = (product: {
             product.price
         );
 
-        console.log("new Product", product);
         dispatch({
             type: ADD_PRODUCT,
             product: newProduct,
