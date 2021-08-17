@@ -23,7 +23,13 @@ export default (
     action: ReducerParams2<OrderType | { orders: Order[] }>
 ) => {
     switch (action.type) {
+        case FETCH_ORDER:
+            if ("orders" in action) {
+                return { ...state, orders: action.orders };
+            }
         case ADD_ORDER:
+            console.log(state);
+
             if ("orderData" in action) {
                 const newOrder = new Order(
                     new Date().toString(),
@@ -36,16 +42,12 @@ export default (
                     orders: state.orders.concat(newOrder),
                 };
             }
-        case FETCH_ORDER:
-            if ("orders" in action) {
-                return { ...state, orders: action.orders };
-            }
+        default:
+            console.log("ACTION OH3", action);
+            return state;
         // return {
         //   orders : {...state.orders, newOrder}
         // }
-        default:
-            console.log(action);
-            return state;
     }
 
     return state;

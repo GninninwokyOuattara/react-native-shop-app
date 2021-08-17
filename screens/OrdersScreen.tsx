@@ -13,9 +13,8 @@ const OrdersScreen: React.FC<ScreenDrawerNavigationProp<DrawerOptions>> = (
     const { orders } = useSelector((state: RootState) => state.orders);
 
     useEffect(() => {
-        const unsubFocus = props.navigation.addListener(
-            "focus",
-            dispatch(fetchOrder)
+        const unsubFocus = props.navigation.addListener("focus", () =>
+            dispatch(fetchOrder())
         );
         return unsubFocus;
     }, []);

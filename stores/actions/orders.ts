@@ -41,7 +41,6 @@ export const addOrder = (cartItems: CartItems, totalAmount: number) => {
 };
 
 export const fetchOrder = () => {
-    console.log("invoked");
     return async (dispatch: any) => {
         try {
             const response = await axios.get(
@@ -50,10 +49,7 @@ export const fetchOrder = () => {
             if (response.status !== 200) {
                 throw new Error("Unexpected Error");
             }
-            // dispatch({
-            //     type: "TETE",
-            //     orders,
-            // });
+
             const ordersData = response.data;
             let orders: Order[] = [];
             for (let key in ordersData) {
@@ -72,7 +68,6 @@ export const fetchOrder = () => {
                     ),
                 ];
             }
-            console.log(orders);
             dispatch({
                 type: FETCH_ORDER,
                 orders,
@@ -82,3 +77,12 @@ export const fetchOrder = () => {
         }
     };
 };
+
+// export const fetchOrder = () => {
+//     return (dispatch: any) => {
+//         dispatch({
+//             type: "TETE",
+//             data: "TETEH",
+//         });
+//     };
+// };
