@@ -1,5 +1,6 @@
 import axios from "axios";
 import Order from "../../models/order";
+import CartItem from "../../models/cart-item";
 import { CartItems } from "../../types";
 
 export const ADD_ORDER = "ADD_ORDER";
@@ -23,7 +24,9 @@ export const addOrder = (cartItems: CartItems, totalAmount: number) => {
             const response = await axios.post(
                 "https://react-native-test-4f012-default-rtdb.firebaseio.com/orders/u1.json",
 
-                { cartItems, totalAmount, date: new Date() }
+                {
+                    ...newOrder,
+                }
             );
 
             if (response.status === 200) {
@@ -52,20 +55,24 @@ export const fetchOrder = () => {
 
             const ordersData = response.data;
             let orders: Order[] = [];
+
             for (let key in ordersData) {
-                let orderData = ordersData[key];
-                for (let key in orderData.cartItems) {
-                    const items = orderData.cartItems[key];
-                    orderData = { ...orderData, cartItems: items };
+                const { id, date, totalAmount, items } = ordersData[key];
+                let itemsObj = {};
+                for (let key in items) {
+                    const { productPrice, productTitle, quantity, sum } =
+                        items[key];
+                    const item = new CartItem(
+                        quantity,
+                        productPrice,
+                        productTitle,
+                        sum
+                    );
+                    itemsObj = { ...itemsObj, [key]: item };
                 }
                 orders = [
                     ...orders,
-                    new Order(
-                        key,
-                        orderData.cartItems,
-                        orderData.totalAmount,
-                        orderData.date
-                    ),
+                    new Order(id, itemsObj, totalAmount, date),
                 ];
             }
             dispatch({
@@ -77,12 +84,3 @@ export const fetchOrder = () => {
         }
     };
 };
-
-// export const fetchOrder = () => {
-//     return (dispatch: any) => {
-//         dispatch({
-//             type: "TETE",
-//             data: "TETEH",
-//         });
-//     };
-// };

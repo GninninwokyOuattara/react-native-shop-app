@@ -12,7 +12,6 @@ const OrderItem: React.FC<Order> = ({
     totalAmount,
     getReadableDate,
 }) => {
-    console.log(items);
     const [showDetails, setShowDetails] = useState(false);
 
     const renderDetails: RenderItemFunc<string> = ({ item }) => {
