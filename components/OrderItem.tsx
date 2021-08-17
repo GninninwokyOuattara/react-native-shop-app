@@ -15,7 +15,7 @@ const OrderItem: React.FC<Order> = ({
     const [showDetails, setShowDetails] = useState(false);
 
     const renderDetails: RenderItemFunc<string> = ({ item }) => {
-        return <CartElement {...items[item]} productId={"1"} />;
+        return <CartElement {...items[item]} productId={"1"} withoutDelete />;
     };
 
     return (

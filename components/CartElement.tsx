@@ -5,7 +5,9 @@ import Icon from "@expo/vector-icons/Ionicons";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../stores/actions/cart";
 
-const CartElement: React.FC<CartItem & { productId: string }> = (props) => {
+const CartElement: React.FC<
+    CartItem & { productId: string; withoutDelete?: boolean }
+> = (props) => {
     const dispatch = useDispatch();
     return (
         <View style={[styles.container, styles.row]}>
@@ -25,13 +27,17 @@ const CartElement: React.FC<CartItem & { productId: string }> = (props) => {
                 <Text style={[styles.text, { marginLeft: 10 }]}>
                     ${props.productPrice}
                 </Text>
-                <Icon
-                    name="ios-trash"
-                    size={20}
-                    color="red"
-                    style={{ marginLeft: 10 }}
-                    onPress={() => dispatch(removeFromCart(props.productId))}
-                />
+                {props.withoutDelete || (
+                    <Icon
+                        name="ios-trash"
+                        size={20}
+                        color="red"
+                        style={{ marginLeft: 10 }}
+                        onPress={() =>
+                            dispatch(removeFromCart(props.productId))
+                        }
+                    />
+                )}
             </View>
         </View>
     );
