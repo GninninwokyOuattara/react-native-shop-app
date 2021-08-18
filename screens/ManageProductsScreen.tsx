@@ -9,10 +9,11 @@ import useLoad from "../hooks/useLoad";
 const ManageProductsScreen: React.FC<
     ScreenNavigationProps<ManageProductsStack>
 > = (props) => {
-    const { isError, isLoading, load } = useLoad();
     const userProducts = useSelector(
         (state: RootState) => state.products.userProducts
     );
+    const { localId } = useSelector((state: RootState) => state.auth);
+    const { isError, isLoading, load } = useLoad(localId);
 
     useEffect(() => {
         const unsubFocus = props.navigation.addListener("focus", load);
@@ -47,7 +48,7 @@ const ManageProductsScreen: React.FC<
         );
     }
 
-    if (!userProducts) {
+    if (!userProducts.length) {
         return (
             <View
                 style={{

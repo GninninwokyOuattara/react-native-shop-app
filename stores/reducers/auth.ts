@@ -1,13 +1,5 @@
 import { SIGNIN, SIGNUP } from "../actions/auth";
-
-interface AuthState {
-    kind: string;
-    idToken: string;
-    email: string;
-    refreshToken: string;
-    expiresIn: string;
-    localId: string;
-}
+import { AuthState, ReducerParams2 } from "../../types";
 
 const authState: AuthState = {
     kind: "",
@@ -18,13 +10,15 @@ const authState: AuthState = {
     localId: "",
 };
 
-export default (state = authState, action: any) => {
+export default (
+    state = authState,
+    action: ReducerParams2<{ data: AuthState }>
+) => {
     switch (action.type) {
         case SIGNIN:
             return { ...state, ...action.data };
         case SIGNUP:
-            console.log({ ...action.data });
-            return state;
+            return { ...state, ...action.data };
         default:
             return state;
     }

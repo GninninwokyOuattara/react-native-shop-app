@@ -6,13 +6,11 @@ import { CartItems } from "../../types";
 export const ADD_ORDER = "ADD_ORDER";
 export const FETCH_ORDER = "FETCH_ORDER";
 
-// export const addOrder = (cartItems: CartItems, totalAmount: number) => {
-//     return {
-//         type: ADD_ORDER,
-//         orderData: { items: cartItems, amount: totalAmount },
-//     };
-// };
-export const addOrder = (cartItems: CartItems, totalAmount: number) => {
+export const addOrder = (
+    cartItems: CartItems,
+    totalAmount: number,
+    userId: string
+) => {
     return async (dispatch: any) => {
         try {
             const newOrder = new Order(
@@ -22,7 +20,7 @@ export const addOrder = (cartItems: CartItems, totalAmount: number) => {
                 new Date()
             );
             const response = await axios.post(
-                "https://react-native-test-4f012-default-rtdb.firebaseio.com/orders/u1.json",
+                `https://react-native-test-4f012-default-rtdb.firebaseio.com/orders/${userId}.json`,
 
                 {
                     ...newOrder,
@@ -43,11 +41,11 @@ export const addOrder = (cartItems: CartItems, totalAmount: number) => {
     };
 };
 
-export const fetchOrder = () => {
+export const fetchOrder = (userId: string) => {
     return async (dispatch: any) => {
         try {
             const response = await axios.get(
-                "https://react-native-test-4f012-default-rtdb.firebaseio.com/orders/u1.json"
+                `https://react-native-test-4f012-default-rtdb.firebaseio.com/orders/${userId}.json`
             );
             if (response.status !== 200) {
                 throw new Error("Unexpected Error");

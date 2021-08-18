@@ -3,7 +3,7 @@ import { fetchProduct } from "../stores/actions/products";
 import { useDispatch } from "react-redux";
 import { fetchOrder } from "../stores/actions/orders";
 
-const useLoad = () => {
+const useLoad = (userId: string) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState<false | string>(false);
     const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const useLoad = () => {
         setIsLoading(true);
         setIsError(false);
         try {
-            await dispatch(fetchProduct());
+            await dispatch(fetchProduct(userId));
         } catch (error) {
             setIsError(error);
         }
@@ -24,7 +24,7 @@ const useLoad = () => {
         setIsLoading(true);
         setIsError(false);
         try {
-            await dispatch(fetchOrder());
+            await dispatch(fetchOrder(userId));
         } catch (error) {
             setIsError(error);
         }

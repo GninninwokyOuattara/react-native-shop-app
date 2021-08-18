@@ -8,6 +8,7 @@ import { clearCart } from "../stores/actions/cart";
 
 const CartScreen: React.FC<NavigationProp> = (props) => {
     const cart = useSelector((state: RootState) => state.cart);
+    const { localId } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
 
     if (!cart.totalAmount) {
@@ -39,7 +40,9 @@ const CartScreen: React.FC<NavigationProp> = (props) => {
                 <Button
                     title={"Order Now"}
                     onPress={() => {
-                        dispatch(addOrder(cart.items, cart.totalAmount));
+                        dispatch(
+                            addOrder(cart.items, cart.totalAmount, localId)
+                        );
                         dispatch(clearCart());
                     }}
                 />

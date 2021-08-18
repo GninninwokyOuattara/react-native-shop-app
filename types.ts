@@ -35,6 +35,15 @@ export interface OrderState {
     orders: Order[];
 }
 
+export interface AuthState {
+    kind: string;
+    idToken: string;
+    email: string;
+    refreshToken: string;
+    expiresIn: string;
+    localId: string;
+}
+
 export type RenderItemFunc<T> = (itemData: { item: T }) => JSX.Element;
 
 export interface Props<T> {

@@ -26,7 +26,7 @@ export const deleteProduct = (productId: string) => {
     };
 };
 
-export const fetchProduct = () => {
+export const fetchProduct = (userId: string) => {
     return async (dispatch: any): Promise<void | string> => {
         try {
             const response = await axios.get(
@@ -51,6 +51,7 @@ export const fetchProduct = () => {
             dispatch({
                 type: FETCH_PRODUCT,
                 products: loadedProducts,
+                userId: userId,
             });
         } catch (error) {
             throw error.message;
@@ -58,13 +59,16 @@ export const fetchProduct = () => {
     };
 };
 
-export const addProduct = (product: {
-    title: string;
-    ownerId: string;
-    imageUrl: string;
-    description: string;
-    price: number;
-}) => {
+export const addProduct = (
+    product: {
+        title: string;
+        ownerId: string;
+        imageUrl: string;
+        description: string;
+        price: number;
+    },
+    userId: string
+) => {
     return async (dispatch: any) => {
         const response = await axios.post(
             "https://react-native-test-4f012-default-rtdb.firebaseio.com/products.json",
@@ -73,7 +77,7 @@ export const addProduct = (product: {
 
         const newProduct = new Product(
             response.data.name,
-            "u1",
+            userId,
             product.title,
             product.imageUrl,
             product.description,
@@ -83,6 +87,7 @@ export const addProduct = (product: {
         dispatch({
             type: ADD_PRODUCT,
             product: newProduct,
+            userId,
         });
     };
 };
@@ -91,7 +96,7 @@ export const addProduct = (product: {
 //     return { type: UPDATE_PRODUCT, product };
 // };
 
-export const updateProduct = (product: Product) => {
+export const updateProduct = (product: Product, userId: string) => {
     return async (dispatch: any): Promise<void | string> => {
         try {
             let updates: Partial<Product> = { ...product };
@@ -104,6 +109,7 @@ export const updateProduct = (product: Product) => {
                 dispatch({
                     type: UPDATE_PRODUCT,
                     product,
+                    userId,
                 });
             }
         } catch (error) {

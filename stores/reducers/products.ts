@@ -10,15 +10,15 @@ import {
 
 const initialState: InitialStoreState = {
     availableProducts: PRODUCTS,
-    userProducts: PRODUCTS.filter((prod) => prod.ownerId === "u1"),
+    userProducts: [],
 };
 
 export default (
     state = initialState,
     action:
-        | ReducerParams2<{ product: Product }>
-        | ReducerParams2<{ productId: string }>
-        | ReducerParams2<{ products: typeof PRODUCTS }>
+        | ReducerParams2<{ product: Product; userId: string }>
+        | ReducerParams2<{ productId: string; userId: string }>
+        | ReducerParams2<{ products: typeof PRODUCTS; userId: string }>
 ) => {
     switch (action.type) {
         case FETCH_PRODUCT:
@@ -27,7 +27,7 @@ export default (
                     ...state,
                     availableProducts: [...action.products],
                     userProducts: action.products.filter(
-                        (prod) => prod.ownerId === "u1"
+                        (prod) => prod.ownerId === action.userId
                     ),
                 };
             }
@@ -41,7 +41,7 @@ export default (
                     ...state,
                     availableProducts: newProduct,
                     userProducts: newProduct.filter(
-                        (prod) => prod.ownerId === "u1"
+                        (prod) => prod.ownerId === action.userId
                     ),
                 };
             }
@@ -58,7 +58,7 @@ export default (
                     ...state,
                     availableProducts: newAvailableProduct,
                     userProducts: newAvailableProduct.filter(
-                        (prod) => prod.ownerId === "u1"
+                        (prod) => prod.ownerId === action.userId
                     ),
                 };
             }
@@ -74,7 +74,7 @@ export default (
                     ...state,
                     availableProducts: newAvailable,
                     userProducts: newAvailable.filter(
-                        (prod) => prod.ownerId === "u1"
+                        (prod) => prod.ownerId === action.userId
                     ),
                 };
             }

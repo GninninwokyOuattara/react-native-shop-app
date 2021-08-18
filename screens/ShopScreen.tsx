@@ -24,13 +24,14 @@ const HomeScreen: React.FC<ScreenNavigationProps<ShopStack>> = (props) => {
     const shopProducts = useSelector(
         (state: RootState) => state.products.availableProducts
     );
+    const { localId } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
 
     const load = useCallback(async () => {
         setIsLoading(true);
         setIsError(false);
         try {
-            await dispatch(fetchProduct());
+            await dispatch(fetchProduct(localId));
         } catch (error) {
             setIsError(error);
         }

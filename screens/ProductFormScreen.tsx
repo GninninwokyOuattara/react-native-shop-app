@@ -14,9 +14,10 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/CustomHeaderButton";
 import CustomInput from "../components/CustomInput";
 import { ScreenNavigationProps, ManageProductsStack } from "../types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct, updateProduct } from "../stores/actions/products";
 import Product from "../models/product";
+import { RootState } from "../types";
 
 const ProductForm: React.FC<
     ScreenNavigationProps<ManageProductsStack> & { route: any }
@@ -27,6 +28,8 @@ const ProductForm: React.FC<
     const [imageUrl, setImageUrl] = useState("");
     const [price, setPrice] = useState("0");
     const [description, setDescription] = useState("");
+
+    const { localId } = useSelector((state: RootState) => state.auth);
 
     const dispatch = useDispatch();
 
@@ -62,12 +65,13 @@ const ProductForm: React.FC<
                                         updateProduct(
                                             new Product(
                                                 id,
-                                                "u1",
+                                                localId,
                                                 title,
                                                 imageUrl,
                                                 description,
                                                 parseFloat(price)
-                                            )
+                                            ),
+                                            localId
                                         )
                                     );
                                     goBack();
@@ -89,13 +93,16 @@ const ProductForm: React.FC<
                                 iconName="ios-checkmark"
                                 onPress={() => {
                                     dispatch(
-                                        addProduct({
-                                            title,
-                                            ownerId: "u1",
-                                            imageUrl,
-                                            description,
-                                            price: +price,
-                                        })
+                                        addProduct(
+                                            {
+                                                title,
+                                                ownerId: localId,
+                                                imageUrl,
+                                                description,
+                                                price: +price,
+                                            },
+                                            localId
+                                        )
                                     );
                                     goBack();
                                 }}
@@ -116,19 +123,6 @@ const ProductForm: React.FC<
             setDescription(product.description);
         }
     }, [product]);
-
-    // useEffect(() => {
-    //     // console.log(id, title, description);
-    //     productToDispatch = new Product(
-    //         id,
-    //         "u1",
-    //         title,
-    //         imageUrl,
-    //         description,
-    //         parseFloat(price)
-    //     );
-    //     console.log("pro", productToDispatch);
-    // }, [id, title, imageUrl, description, price]);
 
     return (
         <KeyboardAvoidingView

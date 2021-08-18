@@ -10,9 +10,10 @@ import useLoad from "../hooks/useLoad";
 const OrdersScreen: React.FC<ScreenDrawerNavigationProp<DrawerOptions>> = (
     props
 ) => {
-    const { isError, isLoading, loadOrders } = useLoad();
     const dispatch = useDispatch();
     const { orders } = useSelector((state: RootState) => state.orders);
+    const { localId } = useSelector((state: RootState) => state.auth);
+    const { isError, isLoading, loadOrders } = useLoad(localId);
 
     useEffect(() => {
         const unsubFocus = props.navigation.addListener("focus", loadOrders);

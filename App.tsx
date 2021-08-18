@@ -24,8 +24,8 @@ enableScreens();
 export const rootReducer = combineReducers({
     products: productReducer,
     cart: cartReducer,
-    orders: orderReducer,
     auth: authReducer,
+    orders: orderReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
