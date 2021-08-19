@@ -70,12 +70,10 @@ export const autoRelog = () => {
             if (data) {
                 let dataParsed: AuthState = JSON.parse(data) as any;
                 const { expiresIn } = dataParsed;
-                console.log("Expires", expiresIn);
-                console.log("Now", Date.now());
                 if (Date.now() < expiresIn) {
                     return dispatch({
                         type: SIGNIN,
-                        data,
+                        data: dataParsed,
                     });
                 }
                 throw new Error("Session expired");

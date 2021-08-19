@@ -56,7 +56,7 @@ const AuthScreen: React.FC<props> = (props) => {
     useEffect(() => {
         const relog = async () => {
             try {
-                await autoRelog();
+                await dispatch(autoRelog());
                 props.setIsLoggedIn(true);
             } catch (error) {
                 console.log(error.message);
