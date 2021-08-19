@@ -40,7 +40,7 @@ export interface AuthState {
     idToken: string;
     email: string;
     refreshToken: string;
-    expiresIn: string;
+    expiresIn: number;
     localId: string;
 }
 

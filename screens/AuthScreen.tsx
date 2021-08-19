@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useReducer, useState, useCallback } from "react";
+import React, { useReducer, useState, useCallback, useEffect } from "react";
 import {
     View,
     Text,
@@ -9,7 +9,7 @@ import {
     ActivityIndicator,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { signIn, signUp } from "../stores/actions/auth";
+import { signIn, signUp, autoRelog } from "../stores/actions/auth";
 
 const formReducer = (
     state: {
@@ -52,6 +52,18 @@ const AuthScreen: React.FC<props> = (props) => {
         formType: "Login",
     });
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const relog = async () => {
+            try {
+                await autoRelog();
+                props.setIsLoggedIn(true);
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        relog();
+    }, []);
 
     const signHandler = useCallback(async () => {
         setIsLoading(true);

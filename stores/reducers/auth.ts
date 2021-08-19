@@ -6,7 +6,7 @@ const authState: AuthState = {
     idToken: "",
     email: "",
     refreshToken: "",
-    expiresIn: "",
+    expiresIn: 0,
     localId: "",
 };
 
