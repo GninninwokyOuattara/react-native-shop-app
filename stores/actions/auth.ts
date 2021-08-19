@@ -8,6 +8,10 @@ export const SIGNUP = "SIGNUP";
 
 export const AUTO_RELOG = "AUTO_RELOG";
 
+export const LOGOUT = "LOGOUT";
+
+let timerId: ReturnType<typeof setTimeout>;
+
 export const signIn = (email: string, password: string) => {
     return async (dispatch: any) => {
         try {
@@ -83,5 +87,19 @@ export const autoRelog = () => {
         } catch (error) {
             throw error;
         }
+    };
+};
+
+const clearTimeoutLogout = () => {
+    clearTimeout(timerId);
+};
+
+export const setLogout = (expirationTime: number) => {
+    clearTimeoutLogout();
+    return async (dispatch: any) => {
+        timerId = setTimeout(() => {
+            AsyncStorage.removeItem("authData");
+            dispatch({ type: LOGOUT });
+        }, expirationTime);
     };
 };

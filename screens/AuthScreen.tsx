@@ -44,7 +44,7 @@ interface props {
     setIsLoggedIn: (x: boolean) => void;
 }
 
-const AuthScreen: React.FC<props> = (props) => {
+const AuthScreen: React.FC<any> = (props) => {
     const dispatch = useDispatch();
     const [state, dispatchForm] = useReducer(formReducer, {
         email: "",
@@ -57,7 +57,7 @@ const AuthScreen: React.FC<props> = (props) => {
         const relog = async () => {
             try {
                 await dispatch(autoRelog());
-                props.setIsLoggedIn(true);
+                // props.setIsLoggedIn(true);
             } catch (error) {
                 console.log(error.message);
             }
@@ -75,8 +75,8 @@ const AuthScreen: React.FC<props> = (props) => {
                 response = await dispatch(signUp(state.email, state.password));
             }
 
-            setIsLoading(false);
-            props.setIsLoggedIn(true);
+            // setIsLoading(false);
+            // props.setIsLoggedIn(true);
         } catch (error) {
             setIsLoading(false);
             console.log("Error", error);

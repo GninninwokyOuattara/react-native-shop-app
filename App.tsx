@@ -7,6 +7,7 @@ import AppLoading from "expo-app-loading";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AuthScreen from "./screens/AuthScreen";
 import { AuthScreenNavigator } from "./navigators/AuthNavigator";
+import NavContainer from "./navigators/NavContainer";
 
 import * as Font from "expo-font";
 import AppStacks from "./navigators/ShopStackNavigator";
@@ -38,11 +39,12 @@ export default function App() {
             <StatusBar style="dark" />
             <Provider store={store}>
                 <NavigationContainer>
-                    {isLoggedIn ? (
+                    {/* {isLoggedIn ? (
                         <AppDrawer />
                     ) : (
                         <AuthScreenNavigator setIsLoggedIn={setIsLoggedIn} />
-                    )}
+                    )} */}
+                    <NavContainer />
                 </NavigationContainer>
             </Provider>
         </SafeAreaProvider>

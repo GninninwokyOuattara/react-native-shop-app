@@ -5,10 +5,8 @@ import AuthScreen from "../screens/AuthScreen";
 
 const Stack = createNativeStackNavigator();
 
-export const AuthScreenNavigator = (props: {
-    setIsLoggedIn: (x: boolean) => void;
-}) => {
-    const { setIsLoggedIn } = props;
+export const AuthScreenNavigator = () => {
+    // const { setIsLoggedIn } = props;
     return (
         <Stack.Navigator
             initialRouteName={"Authentificate"}
@@ -17,9 +15,7 @@ export const AuthScreenNavigator = (props: {
             }}
         >
             <Stack.Screen name="Authentificate">
-                {(props) => (
-                    <AuthScreen {...props} setIsLoggedIn={setIsLoggedIn} />
-                )}
+                {(props) => <AuthScreen {...props} />}
             </Stack.Screen>
         </Stack.Navigator>
     );

@@ -1,4 +1,4 @@
-import { SIGNIN, SIGNUP } from "../actions/auth";
+import { LOGOUT, SIGNIN, SIGNUP } from "../actions/auth";
 import { AuthState, ReducerParams2 } from "../../types";
 
 const authState: AuthState = {
@@ -19,6 +19,8 @@ export default (
             return { ...state, ...action.data };
         case SIGNUP:
             return { ...state, ...action.data };
+        case LOGOUT:
+            return { ...state, ...authState };
         default:
             return state;
     }
