@@ -1,17 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { enableScreens } from "react-native-screens";
-import AppLoading from "expo-app-loading";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import AuthScreen from "./screens/AuthScreen";
-import { AuthScreenNavigator } from "./navigators/AuthNavigator";
 import NavContainer from "./navigators/NavContainer";
-
-import * as Font from "expo-font";
-import AppStacks from "./navigators/ShopStackNavigator";
-import AppDrawer from "./navigators/AppDrawer";
 
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -32,31 +25,15 @@ export const rootReducer = combineReducers({
 export const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
     return (
         <SafeAreaProvider>
             <StatusBar style="dark" />
             <Provider store={store}>
                 <NavigationContainer>
-                    {/* {isLoggedIn ? (
-                        <AppDrawer />
-                    ) : (
-                        <AuthScreenNavigator setIsLoggedIn={setIsLoggedIn} />
-                    )} */}
                     <NavContainer />
                 </NavigationContainer>
             </Provider>
         </SafeAreaProvider>
-        // <SafeAreaProvider>
-        //     <Provider store={store}>
-        //         <StatusBar style="dark" />
-        //         <NavigationContainer>
-        //             <AuthScreenNavigator />
-        //         </NavigationContainer>
-        //     </Provider>
-        //     {/* <AuthScreen /> */}
-        // </SafeAreaProvider>
     );
 }
 

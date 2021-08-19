@@ -6,7 +6,6 @@ import AuthScreen from "../screens/AuthScreen";
 const Stack = createNativeStackNavigator();
 
 export const AuthScreenNavigator = () => {
-    // const { setIsLoggedIn } = props;
     return (
         <Stack.Navigator
             initialRouteName={"Authentificate"}

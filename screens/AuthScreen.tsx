@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useReducer, useState, useCallback, useEffect } from "react";
 import {
     View,
@@ -57,7 +56,6 @@ const AuthScreen: React.FC<any> = (props) => {
         const relog = async () => {
             try {
                 await dispatch(autoRelog());
-                // props.setIsLoggedIn(true);
             } catch (error) {
                 console.log(error.message);
             }
@@ -74,9 +72,6 @@ const AuthScreen: React.FC<any> = (props) => {
             } else {
                 response = await dispatch(signUp(state.email, state.password));
             }
-
-            // setIsLoading(false);
-            // props.setIsLoggedIn(true);
         } catch (error) {
             setIsLoading(false);
             console.log("Error", error);
@@ -141,9 +136,6 @@ const AuthScreen: React.FC<any> = (props) => {
                         />
                     </>
                 )}
-
-                {/* <View style={styles.buttonsContainer}>
-                </View> */}
             </View>
         </View>
     );
@@ -195,7 +187,3 @@ const styles = StyleSheet.create({
 });
 
 export default AuthScreen;
-
-// curl 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCLFYp_YwZ-3kVYaS7zh7S5KOsJd53e0wc' \
-// -H 'Content-Type: application/json' \
-// --data-binary '{"email":"test@t.com","password":"passwordpuissant","returnSecureToken":true}'
